@@ -65,13 +65,22 @@ public class MainActivity extends Activity {
         int nextYear = c.get(Calendar.YEAR);
         int nextMonth = c.get(Calendar.MONTH);
 
+     int ContrastYear =  c.get(Calendar.YEAR); // 用于对比
         for (int i = 0; i < 6; i++) {
             datas.add(new MonthTimeEntity(nextYear,nextMonth,nextYear + "--"+ nextMonth));
-            if (nextMonth == 12){
-                nextMonth = 0;
-                nextYear = nextYear - 1;
+            if(nextMonth == 1){
+                if(nextYear == ContrastYear){
+                    nextYear = nextYear - 1;
+                    nextMonth = nextMonth - 1;
+                }else {
+                    nextMonth = nextMonth - 1;
+                }
+            }else {
+                nextMonth = nextMonth - 1;
             }
-            nextMonth = nextMonth - 1;
+            if(nextMonth == 0){
+                nextMonth = 12;
+            }
         }
         Collections.reverse(datas); //  把日期倒叙
         adapter = new MonthTimeAdapter(datas, MainActivity.this);
